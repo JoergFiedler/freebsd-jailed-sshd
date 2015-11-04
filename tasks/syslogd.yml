@@ -3,7 +3,7 @@
   lineinfile:
     dest: '{{ jail_home.stdout }}/etc/syslog.conf'
     regexp: '\*\.\*.*\@'
-    line: '*.*      @{{ jssh_syslog_server }}'
+    line: '*.*      @{{ jssh_syslogd_server }}'
     insertafter: '^#\s+Consult the syslog.conf'
   notify:
     - Reload {{ jail_name }} s syslogd
