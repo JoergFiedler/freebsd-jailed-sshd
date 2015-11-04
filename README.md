@@ -95,8 +95,7 @@ Example Playbook
         tags: ['sshd'],
         jssh_jail_name: 'sshd',
         jssh_jail_net_ip: '10.1.0.2',
-        jssh_sshd_user: '{{ ssh_user }}',
-        jssh_sshd_pubkey: '{{ ssh_pub_key }}',
+        jssh_sshd_pubkey: 'sh-rsa AAAAB3NzaC1yc2EAAAABIwAAA…',
         jssh_host_net_int_ip: '{{ int_ip }}',
         jssh_host_net_ext_ip: '{{ ansible_default_ipv4.address }}',
         jssh_host_net_ext_if: '{{ ext_if }}' }
