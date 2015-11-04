@@ -2,7 +2,7 @@
 - name: Copy pf configuration (rdr rules)
   template:
     src: pf.anchor.rdr-jail.conf.j2
-    dest: /etc/pf.anchor.rdr-jail.{{ jail_name }}.conf
+    dest: /etc/pf.anchor.rdr-jail.{{ jssh_jail_name }}.conf
   notify:
     - Reload pf
 
@@ -17,7 +17,7 @@
 - name: Copy pf configuration (rls rules)
   template:
     src: pf.anchor.rls-jail.conf.j2
-    dest: /etc/pf.anchor.rls-jail.{{ jail_name }}.conf
+    dest: /etc/pf.anchor.rls-jail.{{ jssh_jail_name }}.conf
   notify:
     - Reload pf
 
@@ -33,7 +33,7 @@
   lineinfile:
     dest: /etc/pf.table.nat-jails
     insertbefore: EOF
-    line: '{{ jsshd_jail_net_ip }}'
+    line: '{{ jssh_jail_net_ip }}'
   notify:
     - Reload pf
 
