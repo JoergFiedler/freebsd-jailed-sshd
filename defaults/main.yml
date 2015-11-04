@@ -10,6 +10,7 @@ jssh_sshd_pubkey: ''
 jssh_sshd_port: 22
 jssh_host_net_int_ip: ''
 jssh_host_net_ext_ip: ''
+jssh_host_net_ext_if: ''
 jssh_syslogd_server: ''
 jssh_ssmtp_forward_address: 'freebsd-ansible-demo@maildrop.cc'
 jssh_ssmtp_forward_mailhub: 'mail.maildrop.cc'

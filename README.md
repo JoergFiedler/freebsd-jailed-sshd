@@ -5,7 +5,7 @@ This role provides a jailed sshd server. Nothing more.
 
 All incoming ssh connection will be redirected to this jail and if the user is allowed to login again forwarded to the hosts internal ssh server.
 
-To see this role in action, have a look at i[this project of mine](https://github.com/JoergFiedler/freebsd-ansible-demo).
+To see this role in action, have a look at [this project of mine](https://github.com/JoergFiedler/freebsd-ansible-demo).
 
 Requirements
 ------------
@@ -56,6 +56,10 @@ The jail's host internal ip address. Default: `''`.
 ##### jssh_host_net_ext_ip
 
 The jail's host external ip address. Default: `''`.
+
+##### jssh_host_net_ext_if
+
+The jail's host external interface. Default: `''`.
 
 ##### jssh_syslogd_server
 
