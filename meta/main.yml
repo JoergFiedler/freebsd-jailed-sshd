@@ -15,4 +15,5 @@ galaxy_info:
   - cloud
   - ec2
   - sshd
+allow_duplicates: false
 dependencies: ['JoergFiedler.freebsd-jail-host']
