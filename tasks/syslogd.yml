@@ -2,7 +2,7 @@
 - name: Configure syslog
   lineinfile:
     dest: '{{ jail_home.stdout }}/etc/syslog.conf'
-    regexp: '\*\.\*.*\@'
+    state: present
     line: '*.*      @{{ jssh_syslogd_server }}'
     insertafter: '^#\s+Consult the syslog.conf'
   notify:
