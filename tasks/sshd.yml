@@ -1,0 +1,43 @@
+---
+- name: Enable sshd
+  lineinfile:
+    dest: '{{ jail_home.stdout }}/etc/rc.conf'
+    state: present
+    regexp: '^sshd_enable='
+    line: 'sshd_enable=\"YES\"'
+
+- name: Configure host sshd (allowed user, authentication, ..)
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    state: present
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+    insertafter: '^Port'
+  with_items:
+    - { regexp: '^ListenAddress', line: 'ListenAddress {{ jssh_host_net_int_ip }}' }
+  notify:
+    - Reload sshd
+
+- name: Configure jails sshd (allowed user, authentication, ..)
+  lineinfile:
+    dest: '{{ jail_home.stdout }}/etc/ssh/sshd_config'
+    state: present
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+    insertbefore: '^#Port'
+  with_items:
+  - { regexp: '^Port', line: 'Port {{ jssh_sshd_port }}' }
+  - { regexp: '^ListenAddress', line: 'ListenAddress {{ jssh_jail_net_ip }}' }
+  - { regexp: '^Protocol', line: 'Protocol 2' }
+  - { regexp: '^AllowUsers', line: 'AllowUsers {{ jssh_sshd_user }}'}
+  - { regexp: '^MaxStartups', line: 'MaxStartups 5:50:10' }
+  - { regexp: '^LoginGraceTime', line: 'LoginGraceTime 30' }
+  - { regexp: '^ChallengeResponseAuthentication',
+      line: 'ChallengeResponseAuthentication no' }
+  - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
+  - { regexp: '^UseDNS', line: 'UseDNS no' }
+  - { regexp: '^UsePAM', line: 'UsePAM no' }
+  - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 30' }
+  notify:
+    - Reload {{ jail_name }} s sshd
+

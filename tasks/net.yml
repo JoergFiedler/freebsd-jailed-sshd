@@ -1,0 +1,11 @@
+---
+- name: Add network config
+  lineinfile:
+    dest: /etc/rc.conf
+    line: "ifconfig_{{ jsshd_jail_net_if }}_alias{{ jssh_jail_net_ip | ipaddr('int') }}=\"inet {{ jssh_jail_net_ip }} netmask 255.255.255.255\""
+  register: add_ip
+
+- name: Activate network config
+  command: ifconfig {{ jsshd_jail_net_if }} inet alias {{ jsshd_jail_net_ip }} netmask 255.255.255.255
+  when: add_ip.changed
+

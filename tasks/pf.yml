@@ -1,0 +1,39 @@
+---
+- name: Copy pf configuration (rdr rules)
+  template:
+    src: pf.anchor.rdr-jail.conf.j2
+    dest: /etc/pf.anchor.rdr-jail.{{ jail_name }}.conf
+  notify:
+    - Reload pf
+
+- name: Add pf configuration to anchor.rdr-jail conf
+  lineinfile:
+    dest: /etc/pf.anchor.rdr-jail.conf
+    state: present
+    line: 'include \"/etc/pf.anchor.rdr-jail.{{ jsshd_jail_name }}.conf\"'
+  notify:
+    - Reload pf
+
+- name: Copy pf configuration (rls rules)
+  template:
+    src: pf.anchor.rls-jail.conf.j2
+    dest: /etc/pf.anchor.rls-jail.{{ jail_name }}.conf
+  notify:
+    - Reload pf
+
+- name: Add pf configuration to anchor.rls-jail conf
+  lineinfile:
+    dest: /etc/pf.anchor.rls-jail.conf
+    state: present
+    line: 'include \"/etc/pf.anchor.rls-jail.{{ jsshd_jail_name }}.conf\"'
+  notify:
+    - Reload pf
+
+- name: Add to allowed NAT hosts
+  lineinfile:
+    dest: /etc/pf.table.nat-jails
+    insertbefore: EOF
+    line: '{{ jsshd_jail_net_ip }}'
+  notify:
+    - Reload pf
+
