@@ -5,6 +5,6 @@
  - include: sshd.yml tags=jump
  - include: user.yml tags=jump
  - include: syslogd.yml tags=jump
-   when: use_syslog_server is defined
+   when: use_syslogd_server is defined
  - include: ssmtp.yml tags=jump
    when: use_ssmtp is defined

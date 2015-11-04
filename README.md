@@ -65,7 +65,7 @@ The jail's host external interface. Default: `''`.
 
 The syslogd server to which all syslog messages are going to be forwarded. Default: `''`.
 
-This feature is only active if the variable `use_syslog_server` is set to any value.
+This feature is only active if the variable `use_syslogd_server` is set to any value.
 
 ##### jssh_ssmtp_forward_address
 
