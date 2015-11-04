@@ -1,3 +1,3 @@
 ---
 # vars file for freebsd-jailed-sshd
-js_jail_hostname: '{{ jssh_jail_name }}.{{ jssh_jail_domain }}'
+jssh_jail_hostname: '{{ jssh_jail_name }}.{{ jssh_jail_domain }}'
