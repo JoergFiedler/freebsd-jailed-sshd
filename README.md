@@ -81,8 +81,6 @@ System mails are forwarded using this mail relay. See [ssmtp man page](https://w
 
 Default: 'mail.maildrop.cc'.
 
-Default: 'freebsd-ansible-demo@maildrop.cc'.
-
 This feature is only active, if the variable `use_ssmtp` is set to any value.
 
 Dependencies
@@ -93,11 +91,15 @@ Dependencies
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - { role: JoergFiedler.freebsd-jailed-sshd,
+        tags: ['sshd'],
+        jssh_jail_name: 'sshd',
+        jssh_jail_net_ip: '10.1.0.2',
+        jssh_sshd_user: '{{ ssh_user }}',
+        jssh_sshd_pubkey: '{{ ssh_pub_key }}',
+        jssh_host_net_int_ip: '{{ int_ip }}',
+        jssh_host_net_ext_ip: '{{ ansible_default_ipv4.address }}',
+        jssh_host_net_ext_if: '{{ ext_if }}' }
 
 License
 -------
