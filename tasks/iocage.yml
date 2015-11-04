@@ -24,7 +24,7 @@
   when: jail_created|changed
 
 - name: Register home diretory
-  command: echo {{ jsshd_ioc_jails_dir }}/{{ jail_uuid.stdout }}/root
+  command: echo {{ jssh_ioc_jails_dir }}/{{ jail_uuid.stdout }}/root
   changed_when: false
   register: jail_home
 
