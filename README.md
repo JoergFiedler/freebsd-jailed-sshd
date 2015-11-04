@@ -96,9 +96,9 @@ Example Playbook
         jssh_jail_name: 'sshd',
         jssh_jail_net_ip: '10.1.0.2',
         jssh_sshd_pubkey: 'sh-rsa AAAAB3NzaC1yc2EAAAABIwAAA…',
-        jssh_host_net_int_ip: '{{ int_ip }}',
-        jssh_host_net_ext_ip: '{{ ansible_default_ipv4.address }}',
-        jssh_host_net_ext_if: '{{ ext_if }}' }
+        jssh_host_net_int_ip: '10.1.0.1',
+        jssh_host_net_ext_ip: '10.0.2.15',
+        jssh_host_net_ext_if: 'vnet0' }
 
 License
 -------
