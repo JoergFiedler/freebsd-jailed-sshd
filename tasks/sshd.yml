@@ -14,7 +14,7 @@
     line: '{{ item.line }}'
     insertafter: '^Port'
   with_items:
-    - { regexp: '^ListenAddress', line: 'ListenAddress {{ jssh_host_net_int_ip }}' }
+    - { regexp: '^ListenAddress', line: 'ListenAddress {{ host_net_int_ip }}' }
   notify:
     - Reload sshd
 
@@ -26,10 +26,10 @@
     line: '{{ item.line }}'
     insertbefore: '^#Port'
   with_items:
-  - { regexp: '^Port', line: 'Port {{ jssh_sshd_port }}' }
-  - { regexp: '^ListenAddress', line: 'ListenAddress {{ jssh_jail_net_ip }}' }
+  - { regexp: '^Port', line: 'Port {{ host_sshd_port }}' }
+  - { regexp: '^ListenAddress', line: 'ListenAddress {{ jail_net_ip }}' }
   - { regexp: '^Protocol', line: 'Protocol 2' }
-  - { regexp: '^AllowUsers', line: 'AllowUsers {{ jssh_sshd_user }}'}
+  - { regexp: '^AllowUsers', line: 'AllowUsers {{ host_sshd_user }}'}
   - { regexp: '^MaxStartups', line: 'MaxStartups 5:50:10' }
   - { regexp: '^LoginGraceTime', line: 'LoginGraceTime 30' }
   - { regexp: '^ChallengeResponseAuthentication',
@@ -39,5 +39,5 @@
   - { regexp: '^UsePAM', line: 'UsePAM no' }
   - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 30' }
   notify:
-    - Reload {{ jssh_jail_name }} s sshd
+    - Reload {{ jail_name }} s sshd
 

@@ -4,7 +4,7 @@
     dest: '{{ jail_home.stdout }}/etc/master.passwd'
     state: present
     insertafter: EOF
-    line: '{{ jssh_sshd_user }}:*:1001:1001::0:0:Remote (ssh) Management User:/home/{{ jssh_sshd_user }}:/bin/sh'
+    line: '{{ host_sshd_user }}:*:1001:1001::0:0:Remote (ssh) Management User:/home/{{ host_sshd_user }}:/bin/sh'
   register: user
 
 - name: Update user database
@@ -13,16 +13,16 @@
 
 - name: Create .ssh directry for ssh user
   file:
-    path: '{{ jail_home.stdout }}/home/{{ jssh_sshd_user }}/.ssh'
-    owner: '{{ jssh_sshd_user }}'
-    group: '{{ jssh_sshd_user }}'
+    path: '{{ jail_home.stdout }}/home/{{ host_sshd_user }}/.ssh'
+    owner: '{{ host_sshd_user }}'
+    group: '{{ host_sshd_user }}'
     mode: 0700
     state: directory
 
 - name: Add trusted ssh key to authorized_hosts
   copy:
-    dest: '{{ jail_home.stdout }}/home/{{ jssh_sshd_user }}/.ssh/authorized_keys'
-    owner: '{{ jssh_sshd_user }}'
-    group: '{{ jssh_sshd_user }}'
-    content: '{{ jssh_sshd_pub_key }}'
+    dest: '{{ jail_home.stdout }}/home/{{ host_sshd_user }}/.ssh/authorized_keys'
+    owner: '{{ host_sshd_user }}'
+    group: '{{ host_sshd_user }}'
+    content: '{{ host_sshd_pub_key }}'
 

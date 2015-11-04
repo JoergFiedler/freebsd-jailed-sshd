@@ -1,18 +1,18 @@
 ---
 - name: Check if jail already exists
-  shell: /usr/local/sbin/iocage show ip4_addr | grep {{ jssh_jail_net_ip }} | cut -d ' ' -f 1
+  shell: /usr/local/sbin/iocage show ip4_addr | grep {{ jail_net_ip }} | cut -d ' ' -f 1
   changed_when: false
   register: jail_uuid
 
 - name: Create base jail
-  command: /usr/local/sbin/iocage create -b tag={{ jssh_jail_hostname }} ip4_addr={{ jssh_jail_net_ip }}
+  command: /usr/local/sbin/iocage create -b tag={{ jail_hostname }} ip4_addr={{ jail_net_ip }}
   when: not jail_uuid.stdout
   register: jail_created
   notify:
     - Start iocage
 
 - name: Get UUID
-  shell: /usr/local/sbin/iocage show ip4_addr | grep {{ jssh_jail_net_ip }} | cut -d ' ' -f 1
+  shell: /usr/local/sbin/iocage show ip4_addr | grep {{ jail_net_ip }} | cut -d ' ' -f 1
   changed_when: false
   register: jail_uuid
 
@@ -24,7 +24,7 @@
   when: jail_created|changed
 
 - name: Register home diretory
-  command: echo {{ jssh_ioc_jails_dir }}/{{ jail_uuid.stdout }}/root
+  command: echo {{ host_ioc_jails_dir }}/{{ jail_uuid.stdout }}/root
   changed_when: false
   register: jail_home
 

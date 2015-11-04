@@ -17,57 +17,57 @@ You will find a sample project which uses this role [here](https://github.com/Jo
 Role Variables
 --------------
 
-##### jssh_jail_name
+##### jail_name
 
-The jail's name. Default: `''`.
+The jail's name. Default: `'{{ jail_net_ip }}'`.
 
-##### jssh_jail_domain
+##### jail_domain
 
 The domain the jail belongs to. Domain part of the hostname. Default: `'darkcity'`.
 
-##### jssh_jail_net_ip
+##### jail_net_ip
 
 The jail's ip address. Default: `''`.
 
-##### jssh_jail_net_if
+##### jail_net_if
 
 The interface to which the jail's ip address is added. Default: `'lo0'`
 
-##### jssh_ioc_jails_dir
+##### host_ioc_jails_dir
 
 The directory iocage creates jails in. Default: `'/iocage/jails'`.
 
-##### jssh_sshd_user
+##### host_sshd_user
 
 The user name used to connect via ssh. Default: `'vagrant'`.
 
-##### jssh_sshd_pubkey
+##### host_sshd_pubkey
 
-The public key used for user authentication. Default: `''`.
+The public key used for user authentication. Will be added to `authorized_key` file of the user (host/jail). Default: `''`.
 
-##### jssh_sshd_port
+##### host_sshd_port
 
 The port the sshd server should listen on. Default: `22`.
 
-##### jssh_host_net_int_ip
+##### host_net_int_ip
 
 The jail's host internal ip address. Default: `''`.
 
-##### jssh_host_net_ext_ip
+##### host_net_ext_ip
 
 The jail's host external ip address. Default: `''`.
 
-##### jssh_host_net_ext_if
+##### host_net_ext_if
 
 The jail's host external interface. Default: `''`.
 
-##### jssh_syslogd_server
+##### syslogd_server
 
 The syslogd server to which all syslog messages are going to be forwarded. Default: `''`.
 
 This feature is only active if the variable `use_syslogd_server` is set to any value.
 
-##### jssh_ssmtp_forward_address
+##### ssmtp_forward_address
 
 System mails are forwarded to this address. See [ssmtp man page](https://www.freebsd.org/cgi/man.cgi?query=ssmtp&apropos=0&sektion=0&manpath=FreeBSD+10.2-RELEASE+and+Ports&arch=default&format=html) for further information.
 
@@ -75,7 +75,7 @@ Default: 'freebsd-ansible-demo@maildrop.cc'.
 
 This feature is only active, if the variable `use_ssmtp` is set to any value.
 
-##### jssh_ssmtp_forward_mailhub
+##### ssmtp_forward_mailhub
 
 System mails are forwarded using this mail relay. See [ssmtp man page](https://www.freebsd.org/cgi/man.cgi?query=ssmtp&apropos=0&sektion=0&manpath=FreeBSD+10.2-RELEASE+and+Ports&arch=default&format=html) for further information.
 
@@ -93,12 +93,12 @@ Example Playbook
 
     - { role: JoergFiedler.freebsd-jailed-sshd,
         tags: ['sshd'],
-        jssh_jail_name: 'sshd',
-        jssh_jail_net_ip: '10.1.0.2',
-        jssh_sshd_pub_key: 'sh-rsa AAAAB3NzaC1yc2EAAAABIwAAA…',
-        jssh_host_net_int_ip: '10.1.0.1',
-        jssh_host_net_ext_ip: '10.0.2.15',
-        jssh_host_net_ext_if: 'vnet0' }
+        jail_name: 'sshd',
+        jail_net_ip: '10.1.0.2',
+        host_sshd_pub_key: 'sh-rsa AAAAB3NzaC1yc2EAAAABIwAAA…',
+        host_net_int_ip: '10.1.0.1',
+        host_net_ext_ip: '10.0.2.15',
+        host_net_ext_if: 'vnet0' }
 
 License
 -------

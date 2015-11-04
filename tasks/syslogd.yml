@@ -3,10 +3,10 @@
   lineinfile:
     dest: '{{ jail_home.stdout }}/etc/syslog.conf'
     state: present
-    line: '*.*      @{{ jssh_syslogd_server }}'
+    line: '*.*      @{{ syslogd_server }}'
     insertafter: '^#\s+Consult the syslog.conf'
   notify:
-    - Reload {{ jssh_jail_name }} s syslogd
+    - Reload {{ jail_name }} s syslogd
 
 - name: Enable remote syslog logging
   lineinfile:
@@ -14,5 +14,5 @@
     regexp: 'syslogd_flags='
     line: 'syslogd_flags=\"-c -s\"'
   notify:
-    - Reload {{ jssh_jail_name }} s syslogd
+    - Reload {{ jail_name }} s syslogd
 
