@@ -5,7 +5,7 @@
   register: jail_uuid
 
 - name: Create base jail
-  command: /usr/local/sbin/iocage create -b tag={{ jssh_jail_name }} ip4_addr={{ jssh_jail_net_ip }}
+  command: /usr/local/sbin/iocage create -b tag={{ jssh_jail_hostname }} ip4_addr={{ jssh_jail_net_ip }}
   when: not jail_uuid.stdout
   register: jail_created
   notify:
