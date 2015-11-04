@@ -39,5 +39,5 @@
   - { regexp: '^UsePAM', line: 'UsePAM no' }
   - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 30' }
   notify:
-    - Reload {{ jail_name }} s sshd
+    - Reload {{ jssh_jail_name }} s sshd
 
