@@ -27,7 +27,7 @@ The domain the jail belongs to. Domain part of the hostname. Default: `'darkcity
 
 ##### jail_net_ip
 
-The jail's ip address. Default: `''`.
+The jail's ip address. No default, a value must be set.
 
 ##### jail_net_if
 
@@ -43,7 +43,7 @@ The user name used to connect via ssh. Default: `'vagrant'`.
 
 ##### host_sshd_pubkey
 
-The public key used for user authentication. Will be added to `authorized_key` file of the user (host/jail). Default: `''`.
+The public key used for user authentication. Will be added to `authorized_key` file of the user (host/jail). Defaults to vagrants insecure public key.
 
 ##### host_sshd_port
 
@@ -51,19 +51,19 @@ The port the sshd server should listen on. Default: `22`.
 
 ##### host_net_int_ip
 
-The jail's host internal ip address. Default: `''`.
+The jail's host internal ip address. Default: `'10.1.0.1'`.
 
 ##### host_net_ext_ip
 
-The jail's host external ip address. Default: `''`.
+The jail's host external ip address. Default: `'10.0.2.15'`.
 
 ##### host_net_ext_if
 
-The jail's host external interface. Default: `''`.
+The jail's host external interface. Default: `'vtnet0'`.
 
 ##### syslogd_server
 
-The syslogd server to which all syslog messages are going to be forwarded. Default: `''`.
+The syslogd server to which all syslog messages are going to be forwarded. No default value.
 
 This feature is only active if the variable `use_syslogd_server` is set to any value.
 
@@ -94,11 +94,7 @@ Example Playbook
     - { role: JoergFiedler.freebsd-jailed-sshd,
         tags: ['sshd'],
         jail_name: 'sshd',
-        jail_net_ip: '10.1.0.2',
-        host_sshd_pub_key: 'sh-rsa AAAAB3NzaC1yc2EAAAABIwAAA…',
-        host_net_int_ip: '10.1.0.1',
-        host_net_ext_ip: '10.0.2.15',
-        host_net_ext_if: 'vnet0' }
+        jail_net_ip: '10.1.0.2' }
 
 License
 -------

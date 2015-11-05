@@ -2,15 +2,6 @@
 # defaults file for freebsd-jailed-sshd
 jail_name: '{{ jail_net_ip }}'
 jail_domain: 'darkcity'
-jail_net_ip: ''
 jail_net_if: 'lo0'
-host_ioc_jails_dir: '/iocage/jails'
-host_sshd_user: 'vagrant'
-host_sshd_pubkey: ''
-host_sshd_port: 22
-host_net_int_ip: ''
-host_net_ext_ip: ''
-host_net_ext_if: ''
-syslogd_server: ''
 ssmtp_forward_address: 'freebsd-ansible-demo@maildrop.cc'
 ssmtp_forward_mailhub: 'mail.maildrop.cc'
