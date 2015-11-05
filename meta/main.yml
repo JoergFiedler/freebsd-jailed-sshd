@@ -16,4 +16,4 @@ galaxy_info:
   - ec2
   - sshd
 dependencies:
-- { role: /Users/john/project/freebsd-jail-host }
+- { role: JoergFiedler.freebsd-jail-host }
