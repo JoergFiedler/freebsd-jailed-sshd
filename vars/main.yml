@@ -1,3 +1,4 @@
 ---
 # vars file for freebsd-jailed-sshd
 jail_hostname: '{{ jail_name }}.{{ jail_domain }}'
+ansible_python_interpreter: '/usr/local/bin/python2.7'
