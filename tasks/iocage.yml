@@ -4,8 +4,8 @@
   changed_when: false
   register: jail_uuid
 
-- name: Create base jail
-  command: /usr/local/sbin/iocage create -b tag={{ jail_hostname }} ip4_addr={{ jail_net_ip }}
+- name: Create jail
+  command: /usr/local/sbin/iocage create tag={{ jail_hostname }} ip4_addr={{ jail_net_ip }}
   when: not jail_uuid.stdout
   register: jail_created
   notify:
