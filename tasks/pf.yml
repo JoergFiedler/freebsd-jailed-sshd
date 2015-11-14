@@ -29,11 +29,3 @@
   notify:
     - Reload pf
 
-- name: Add to allowed NAT hosts
-  lineinfile:
-    dest: /etc/pf.table.nat-jails
-    insertbefore: EOF
-    line: '{{ jail_net_ip }}'
-  notify:
-    - Reload pf
-
