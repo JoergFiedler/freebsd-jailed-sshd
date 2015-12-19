@@ -1,7 +1,2 @@
 ---
 # defaults file for freebsd-jailed-sshd
-jail_name: '{{ jail_net_ip }}'
-jail_domain: 'darkcity'
-jail_net_if: 'lo0'
-ssmtp_forward_address: 'freebsd-ansible-demo@maildrop.cc'
-ssmtp_forward_mailhub: 'mail.maildrop.cc'

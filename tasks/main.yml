@@ -1,10 +1,4 @@
 ---
- - include: iocage.yml tags=jump
- - include: net.yml tags=jump
- - include: pf.yml tags=jump
- - include: sshd.yml tags=jump
- - include: user.yml tags=jump
- - include: syslogd.yml tags=jump
-   when: use_syslogd_server is defined
- - include: ssmtp.yml tags=jump
-   when: use_ssmtp is defined
+ - include: pf.yml
+ - include: sshd.yml
+ - include: user.yml
