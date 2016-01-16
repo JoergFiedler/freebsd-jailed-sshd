@@ -4,7 +4,7 @@
     dest: '{{ jail_home.stdout }}/etc/rc.conf'
     state: present
     regexp: '^sshd_enable='
-    line: 'sshd_enable=\"YES\"'
+    line: 'sshd_enable="YES"'
 
 - name: Configure host sshd (allowed user, authentication, ..)
   lineinfile:
