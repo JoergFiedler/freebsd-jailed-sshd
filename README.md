@@ -61,28 +61,6 @@ The jail's host external ip address. Default: `'10.0.2.15'`.
 
 The jail's host external interface. Default: `'vtnet0'`.
 
-##### syslogd_server
-
-The syslogd server to which all syslog messages are going to be forwarded. No default value.
-
-This feature is only active if the variable `use_syslogd_server` is set to any value.
-
-##### ssmtp_forward_address
-
-System mails are forwarded to this address. See [ssmtp man page](https://www.freebsd.org/cgi/man.cgi?query=ssmtp&apropos=0&sektion=0&manpath=FreeBSD+10.2-RELEASE+and+Ports&arch=default&format=html) for further information.
-
-Default: 'freebsd-ansible-demo@maildrop.cc'.
-
-This feature is only active, if the variable `use_ssmtp` is set to any value.
-
-##### ssmtp_forward_mailhub
-
-System mails are forwarded using this mail relay. See [ssmtp man page](https://www.freebsd.org/cgi/man.cgi?query=ssmtp&apropos=0&sektion=0&manpath=FreeBSD+10.2-RELEASE+and+Ports&arch=default&format=html) for further information.
-
-Default: 'mail.maildrop.cc'.
-
-This feature is only active, if the variable `use_ssmtp` is set to any value.
-
 Dependencies
 ------------
 
