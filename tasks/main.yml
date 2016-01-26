@@ -1,4 +1,10 @@
 ---
-- include: pf.yml tags=sshd
-- include: sshd.yml tags=sshd
-- include: user.yml tags=sshd
+- include: pf.yml
+  tags:
+    - sshd
+- include: sshd.yml
+  tags:
+    - sshd
+- include: user.yml
+  tags:
+    - sshd
