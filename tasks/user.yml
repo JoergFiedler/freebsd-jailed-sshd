@@ -19,10 +19,10 @@
     mode: 0700
     state: directory
 
-- name: Add trusted ssh key to authorized_hosts
+- name: Copy authorized keys file
   copy:
+    src: '{{ host_sshd_authorized_keys_file }}'
     dest: '{{ jail_home.stdout }}/home/{{ host_sshd_user }}/.ssh/authorized_keys'
     owner: '{{ host_sshd_user }}'
     group: '{{ host_sshd_user }}'
-    content: '{{ host_sshd_pub_key }}'
 
