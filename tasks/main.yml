@@ -1,10 +1,7 @@
 ---
 - include: pf.yml
-  tags:
-    - sshd
+  tags: sshd
 - include: sshd.yml
-  tags:
-    - sshd
+  tags: sshd
 - include: user.yml
-  tags:
-    - sshd
+  tags: sshd

@@ -1,2 +1,10 @@
 ---
 # defaults file for freebsd-jailed-sshd
+sshd_authorized_keys_file: '{{ host_sshd_authorized_keys_file }}'
+sshd_user: '{{ host_sshd_user }}'
+sshd_user_uid: 1001
+sshd_user_gid: 1001
+sshd_user_shell: '/bin/sh'
+sshd_user_home: '/home/{{ sshd_user }}'
+sshd_port: '{{ host_sshd_port }}'
+sshd_jump_host: false

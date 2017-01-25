@@ -4,7 +4,7 @@
     dest: '{{ jail_home.stdout }}/etc/master.passwd'
     state: present
     insertafter: EOF
-    line: '{{ host_sshd_user }}:*:1001:1001::0:0:Remote (ssh) Management User:/home/{{ host_sshd_user }}:/bin/sh'
+    line: '{{ sshd_user }}:*:{{ sshd_user_uid }}:{{ sshd_user_gid }}::0:0:Remote (ssh) Management User:{{ sshd_user_home }}:{{ sshd_user_shell }}'
   register: user
 
 - name: Update user database
@@ -13,16 +13,16 @@
 
 - name: Create .ssh directry for ssh user
   file:
-    path: '{{ jail_home.stdout }}/home/{{ host_sshd_user }}/.ssh'
-    owner: '{{ host_sshd_user }}'
-    group: '{{ host_sshd_user }}'
+    path: '{{ jail_home.stdout }}{{ sshd_user_home }}/.ssh'
+    owner: '{{ sshd_user_uid }}'
+    group: '{{ sshd_user_gid }}'
     mode: 0700
     state: directory
 
 - name: Copy authorized keys file
   copy:
-    src: '{{ host_sshd_authorized_keys_file }}'
-    dest: '{{ jail_home.stdout }}/home/{{ host_sshd_user }}/.ssh/authorized_keys'
-    owner: '{{ host_sshd_user }}'
-    group: '{{ host_sshd_user }}'
+    src: '{{ sshd_authorized_keys_file }}'
+    dest: '{{ jail_home.stdout }}{{ sshd_user_home }}/.ssh/authorized_keys'
+    owner: '{{ sshd_user_uid }}'
+    group: '{{ sshd_user_gid }}'
 

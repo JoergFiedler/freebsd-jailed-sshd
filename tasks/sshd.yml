@@ -6,18 +6,6 @@
     regexp: '^sshd_enable='
     line: 'sshd_enable="YES"'
 
-- name: Configure host sshd (allowed user, authentication, ..)
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    state: present
-    regexp: '{{ item.regexp }}'
-    line: '{{ item.line }}'
-    insertafter: '^Port'
-  with_items:
-    - { regexp: '^ListenAddress', line: 'ListenAddress {{ host_net_int_ip }}' }
-  notify:
-    - Reload sshd
-
 - name: Configure jails sshd (allowed user, authentication, ..)
   lineinfile:
     dest: '{{ jail_home.stdout }}/etc/ssh/sshd_config'
@@ -26,10 +14,10 @@
     line: '{{ item.line }}'
     insertbefore: '^#Port'
   with_items:
-  - { regexp: '^Port', line: 'Port {{ host_sshd_port }}' }
+  - { regexp: '^Port', line: 'Port {{ sshd_port }}' }
   - { regexp: '^ListenAddress', line: 'ListenAddress {{ jail_net_ip }}' }
   - { regexp: '^Protocol', line: 'Protocol 2' }
-  - { regexp: '^AllowUsers', line: 'AllowUsers {{ host_sshd_user }}'}
+  - { regexp: '^AllowUsers', line: 'AllowUsers {{ sshd_user }}'}
   - { regexp: '^MaxStartups', line: 'MaxStartups 3:50:5' }
   - { regexp: '^MaxAuthTries', line: 'MaxAuthTries 3' }
   - { regexp: '^LoginGraceTime', line: 'LoginGraceTime 5' }
@@ -42,3 +30,15 @@
   notify:
     - Reload {{ jail_name }} s sshd
 
+- name: Configure host sshd (allowed user, authentication, ..)
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    state: present
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+    insertafter: '^Port'
+  with_items:
+    - { regexp: '^ListenAddress', line: 'ListenAddress {{ host_net_int_ip }}' }
+  when: sshd_jump_host
+  notify:
+    - Reload sshd

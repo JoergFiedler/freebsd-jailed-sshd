@@ -18,6 +18,7 @@
   template:
     src: pf.anchor.rls-jail.conf.j2
     dest: /etc/pf.anchor.rls-jail.{{ jail_name }}.conf
+  when: sshd_jump_host
   notify:
     - Reload pf
 
@@ -26,6 +27,6 @@
     dest: /etc/pf.anchor.rls-jail.conf
     state: present
     line: 'include "/etc/pf.anchor.rls-jail.{{ jail_name }}.conf"'
+  when: sshd_jump_host
   notify:
     - Reload pf
-
