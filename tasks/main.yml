@@ -1,7 +1,10 @@
 ---
-- include: pf.yml
-  tags: sshd
-- include: sshd.yml
-  tags: sshd
-- include: user.yml
-  tags: sshd
+- import_tasks: pf.yml
+  tags:
+    - sshd
+- import_tasks: sshd.yml
+  tags:
+    - sshd
+- import_tasks: user.yml
+  tags:
+    - sshd

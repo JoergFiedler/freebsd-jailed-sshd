@@ -1,3 +1,5 @@
+{{ ansible_managed | comment }}
+
 # redirect incoming SSH connection to jump host
 rdr pass log on {{ host_net_ext_if }} proto tcp \
   from any \

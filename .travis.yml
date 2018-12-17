@@ -1,0 +1,25 @@
+dist: trusty
+sudo: false
+language: python
+python: 2.7
+install:
+- wget https://releases.hashicorp.com/vagrant/1.9.7/vagrant_1.9.7_x86_64.deb
+- sudo dpkg -i vagrant_1.9.7_x86_64.deb
+- pip install ansible==2.6.1
+- pip install netaddr
+before_script:
+- vagrant plugin install vagrant-aws
+- ssh-keygen -y -f ~/.vagrant.d/insecure_private_key > ~/.vagrant.d/insecure_private_key.pub
+- ln -s ./ JoergFiedler.freebsd-jailed-sshd
+script:
+- ansible-galaxy install -p ./ -r .requirements.yml
+- vagrant box add JoergFiedler/FreeBSD-11.2 --provider aws
+- vagrant up --provider aws
+- vagrant ssh -c "sudo iocage list"
+after_script:
+- vagrant destroy -f
+
+env:
+  global:
+  - secure: gOH7n0VTYz3jtnEsS9cwcK2ZHcqLeM1DrbYTucTMpB+ngGIlQbl47Z5Y1EO8BfWfPBEE3qetHgJwjbZHD/OpMDRXECKiHyvU/AIePCRim5lCDgU+AFfAnXH9k5q7OR0q0Sk+Ws2QigPu4bBheJ7LYaOLdV6Lp3fnKqIh8OSlSEKuvP/EVI2q1AOr/0mZHf5aV2iUEVpsa7QQcSqooHb6c+yP8x+rue51DhB7pE29oMqouR8HC4y7sWxi4jsmifjEM7zuGSsBrsGLpnvENuah2Bnzio42NlUSSAX5ArpVQQ01qL5gxqnloSNgVkbs7qGhTk8FzlU1Lm+DWM6iKDiJGj4ffxQAWQdxLpCTGaVD2b+9JRSoU37PYyHvECXelnCcjJxNQoDOMndMV9sn3E2rfZvSHbdrQai0lxfG6CEf6jtkR3wip7gWWfhqMkfpJXNaHRDfVPoI8ncVOd6Yq3HNZ1jjbEnJAJrwXkPgenbTvSxoN/6Qdx6iBXzYx9jsXNyO5ftNoqYlI+WEuvjwlanLqrjteIkDnk++Hwk+U/nOQBwAKc3MpWt88hpCuSmm+j4AL6ZZI6+m6PB6Nxa5I6Hiot5GhYtc5Ph+haL0iTSMkzZNqzuWldG3pM365hTwOV8QiPze7waJ6IoYSNpLB8hNT5dbdU2mz6gWb87qsEPEu90=
+  - secure: Sb2/JhvfwwYw/fk79PcbTvmkCavOAiXV3XJqTYOYaFvCc+8bJ+y5q4LfHHMXXV50DxWYErJakKs4b02aE2X+t37VUTQwFlG1f9U/cf6Oc1nM7vVbMaI1Vl5hxdHr0bMoSm+8W7/fJKCNnlMtpO8ZouGT0Ttuja+gDYMfa8Fkhkf7GmeZSyCA+bgvbAiU5jyhftqRwPQnRtuk5oiubp7cOEWH2OZ3eL6WhX238GYPTxyCoVjfiRJ78DZZY+WtgoSb8uU08MU2EzRyTeIy31kSNi5YHQ+3KAlO8sE2nQNF6N3JDmA7+mXg7tEIXdAhTCUJ0WURx+INnz6GxrGtuJboEsHqJ88OyRJu/oz1Q8buunzU7R19z1E/KTGzu0K19zTbAY74Iqd1C0NVI9/6bYCyAhVQmBORKApjKIC6UdfeIj5vBsE9e1L01rgVJ67T3KrtgcitJk6sa99LCq6+2WH6mUmGK5DJZVuTxXLiEs00ILWptfRIe/M+hqBwZ8odAG9Z7MWQvRS9hr2J6rDWMlbudgm7gcnkXV0/NGE5atmA85e+52F4a6QAtLifsGHCQqBniirconVTrqLTdqaDgI4OR+Mtp46yM5kJyb9dkA8f5jme6327KMjMgDEhx4tErcHskh2itdz5IJhn9BOMwSylbAge9v5VZ6AieDXUITFKQKI=
