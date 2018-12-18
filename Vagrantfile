@@ -38,8 +38,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider 'aws' do |aws, global|
-    # proxy_command = "#{PROXY_COMMAND} ec2-user@%h"
-    # global.ssh.proxy_command = proxy_command
+    proxy_command = "#{PROXY_COMMAND} ec2-user@%h"
+    global.ssh.proxy_command = proxy_command
     global.ssh.username = 'ec2-user'
 
     global.vm.provision 'ansible', type: 'ansible' do |ansible|
@@ -47,18 +47,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     aws.access_key_id = ENV['AWS_ACCESS_KEY_ID']
-    aws.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-    aws.ssh_host_attribute = :dns_name
-    aws.keypair_name = 'ec2-user'
-    aws.region = 'eu-west-1'
-    aws.user_data = "#!/bin/sh
-echo 'pass all keep state' >> /etc/pf.conf
-echo pf_enable=YES >> /etc/rc.conf
-echo pflog_enable=YES >> /etc/rc.conf
-echo 'firstboot_pkgs_list=\"awscli sudo bash python27\"' >> /etc/rc.conf
-mkdir -p /usr/local/etc/sudoers.d
-/usr/sbin/service pf start
-echo 'ec2-user ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers.d/ec2-user"
+    aws.associate_public_ip = true
+    aws.instance_type = 't3.medium'
     aws.block_device_mapping = [
         {
             'DeviceName' => '/dev/sda1',
@@ -73,6 +63,20 @@ echo 'ec2-user ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers.d/ec2-user"
             'Ebs.DeleteOnTermination' => true
         }
     ]
+    aws.keypair_name = 'ec2-user'
+    aws.region = 'eu-west-1'
+    aws.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+    aws.security_groups = ['sg-1d29f478']
+    aws.ssh_host_attribute = :dns_name
+    aws.subnet_id = 'subnet-cf3beaaa'
     aws.terminate_on_shutdown = true
+    aws.user_data = "#!/bin/sh
+echo 'pass all keep state' >> /etc/pf.conf
+echo pf_enable=YES >> /etc/rc.conf
+echo pflog_enable=YES >> /etc/rc.conf
+echo 'firstboot_pkgs_list=\"awscli sudo bash python27\"' >> /etc/rc.conf
+mkdir -p /usr/local/etc/sudoers.d
+/usr/sbin/service pf start
+echo 'ec2-user ALL=(ALL) NOPASSWD: ALL' >> /usr/local/etc/sudoers.d/ec2-user"
   end
 end

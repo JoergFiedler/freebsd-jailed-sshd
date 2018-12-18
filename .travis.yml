@@ -3,9 +3,9 @@ sudo: false
 language: python
 python: 2.7
 install:
-- wget https://releases.hashicorp.com/vagrant/1.9.7/vagrant_1.9.7_x86_64.deb
-- sudo dpkg -i vagrant_1.9.7_x86_64.deb
-- pip install ansible==2.6.1
+- wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
+- sudo dpkg -i vagrant_2.2.2_x86_64.deb
+- pip install ansible==2.7.0
 - pip install netaddr
 before_script:
 - vagrant plugin install vagrant-aws
