@@ -38,9 +38,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider 'aws' do |aws, global|
-    proxy_command = "#{PROXY_COMMAND} ec2-user@%h"
-    global.ssh.proxy_command = proxy_command
-    global.ssh.username = 'ec2-user'
+    # proxy_command = "#{PROXY_COMMAND} ec2-user@%h"
+    # global.ssh.proxy_command = proxy_command
     global.ssh.username = 'ec2-user'
 
     global.vm.provision 'ansible', type: 'ansible' do |ansible|
