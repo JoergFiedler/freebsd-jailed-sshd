@@ -4,7 +4,7 @@ PROXY_COMMAND = '/usr/bin/ssh -p %p ' +
     '-o StrictHostKeyChecking=no ' +
     '-o UserKnownHostsFile=/dev/null ' +
     '-q ' +
-    '-W %h:22'
+    '-W localhost:22'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
@@ -48,7 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     aws.access_key_id = ENV['AWS_ACCESS_KEY_ID']
     aws.associate_public_ip = true
-    aws.instance_type = 't3.medium'
+    aws.instance_type = 't3.small'
     aws.block_device_mapping = [
         {
             'DeviceName' => '/dev/sda1',
