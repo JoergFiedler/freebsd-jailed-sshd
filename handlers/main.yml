@@ -1,5 +1,5 @@
 ---
 - name: Reload {{ jail_name }} s sshd
   command: |
-    /usr/local/sbin/iocage exec {{ jail.name }} service sshd reload
+    /usr/local/bin/iocage exec {{ jail.name }} service sshd reload
   when: not jail_created is changed
