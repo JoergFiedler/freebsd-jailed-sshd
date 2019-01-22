@@ -5,13 +5,9 @@
     dest: '{{ jail_home.stdout }}/etc/master.passwd'
     state: present
     insertafter: EOF
-    line: '{{ sshd_user }}:*:{{ sshd_user_uid }}:{{ sshd_user_gid }}::0:0:Remote (ssh) Management User:{{ sshd_user_home }}:{{ sshd_user_shell }}'
-  register: user
-
-- name: Update user database
-  command: |
-    pwd_mkdb -p -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd
-  when: user.changed
+    line: '{{ ssh_user_master_passwd_entry }}'
+  notify:
+    - Update user database
 
 - name: Create .ssh directry for ssh user
   file:
@@ -28,4 +24,3 @@
     dest: '{{ jail_home.stdout }}{{ sshd_user_home }}/.ssh/authorized_keys'
     owner: '{{ sshd_user_uid }}'
     group: '{{ sshd_user_gid }}'
-

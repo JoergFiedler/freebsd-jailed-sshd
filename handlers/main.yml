@@ -3,3 +3,7 @@
   command: |
     /usr/local/bin/iocage exec {{ jail.name }} service sshd reload
   when: not jail_created is changed
+
+- name: Update user database
+  command: |
+    pwd_mkdb -p -d {{ jail_home.stdout }}/etc {{ jail_home.stdout }}/etc/master.passwd

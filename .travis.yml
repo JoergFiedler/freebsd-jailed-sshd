@@ -4,13 +4,14 @@ python: 2.7
 install:
 - wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
 - sudo dpkg -i vagrant_2.2.2_x86_64.deb
-- pip install ansible==2.7.0
-- pip install netaddr
+- pip install -r .requirements.txt
 before_script:
 - vagrant plugin install vagrant-aws
 - ssh-keygen -y -f ~/.vagrant.d/insecure_private_key > ~/.vagrant.d/insecure_private_key.pub
 - ln -s ./ JoergFiedler.freebsd-jailed-sshd
 script:
+- ansible-lint .
+- yamllint .
 - ansible-galaxy install -p ./ -r .requirements.yml
 - vagrant box add JoergFiedler/FreeBSD-11.2 --provider aws
 - vagrant up --provider aws
