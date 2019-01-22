@@ -3,76 +3,70 @@ freebsd-jailed-sshd
 
 This role provides a jailed sshd server. Nothing more.
 
-All incoming ssh connection will be redirected to this jail and if the user is allowed to login again forwarded to the hosts internal ssh server.
-
-To see this role in action, have a look at [this project of mine](https://github.com/JoergFiedler/freebsd-ansible-demo).
+All incoming ssh connection will be redirected to this jail and if the user is allowed to login again forwarded to the hosts internal ssh server (needs proxy command to be set up - see `Vagrantfile` within this project for example).  
 
 Requirements
 ------------
 
-This role is intent to be used with a fresh FreeBSD 10.2 installation. There is a Vagrant Box with providers for VirtualBox and EC2 you may use.
-
-You will find a sample project which uses this role [here](https://github.com/JoergFiedler/freebsd-ansible-demo).
+This role is intent to be used with a fresh FreeBSD 11.2 installation. There is a Vagrant Box with providers for VirtualBox and EC2 you may use.
 
 Role Variables
 --------------
 
-##### jail_name
-
-The jail's name. Default: `'{{ jail_net_ip }}'`.
-
-##### jail_domain
-
-The domain the jail belongs to. Domain part of the hostname. Default: `'darkcity'`.
-
-##### jail_net_ip
-
-The jail's ip address. No default, a value must be set.
-
-##### jail_net_if
-
-The interface to which the jail's ip address is added. Default: `'lo0'`
-
-##### host_ioc_jails_dir
-
-The directory iocage creates jails in. Default: `'/iocage/jails'`.
-
-##### host_sshd_user
-
-The user name used to connect via ssh. Default: `'vagrant'`.
-
-##### host_sshd_pubkey
+##### sshd_authorized_key_file
 
 The public key used for user authentication. Will be added to `authorized_key` file of the user (host/jail). Defaults to vagrants insecure public key.
 
-##### host_sshd_port
+##### sshd_jump_host
+
+Set to `yes` if this jail is used as jump host for the host system. Default: `no`.
+ 
+##### sshd_port
 
 The port the sshd server should listen on. Default: `22`.
 
-##### host_net_int_ip
+##### sshd_user
 
-The jail's host internal ip address. Default: `'10.1.0.1'`.
+The user name used to connect via ssh. Default: `'vagrant'`.
 
-##### host_net_ext_ip
+##### sshd_gid
 
-The jail's host external ip address. Default: `'10.0.2.15'`.
+The group id the ssh user should belong to. Default: `1001`.
 
-##### host_net_ext_if
+##### sshd_user_home
 
-The jail's host external interface. Default: `'vtnet0'`.
+The ssh user's home directory. Default: `/home/{{ sshd_user }}`.
+
+##### sshd_user_shell
+
+The default shell for the ssh user. Default: `/bin/sh`.
+
+##### sshd_user_uid
+
+The id for the ssh user. Default: `1001`.
 
 Dependencies
 ------------
 
-- [JoergFiedler.freebsd-jailed](https://galaxy.ansible.com/detail#/role/6599)
+- [JoergFiedler.freebsd-jailed](https://galaxy.ansible.com/joergfiedler/freebsd-jailed)
 
 Example Playbook
 ----------------
 
-    - { role: JoergFiedler.freebsd-jailed-sshd,
-        tags: ['sshd'],
-        jail_name: 'sshd',
-        jail_net_ip: '10.1.0.2' }
+    - hosts: all
+      become: true
+    
+      vars:
+        ansible_python_interpreter: '/usr/local/bin/python2.7'
+    
+      tasks:
+        - include_role:
+            name: 'JoergFiedler.freebsd-jailed-sshd'
+          vars:
+            jail_net_ip: '10.1.0.10'
+            jail_name: 'sshd'
+            jail_freebsd_release: '11.2-RELEASE'
+            sshd_jump_host: true
 
 License
 -------

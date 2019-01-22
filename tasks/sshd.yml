@@ -1,6 +1,7 @@
 ---
 - name: Enable sshd
   lineinfile:
+    backup: '{{ backup_old_files }}'
     dest: '{{ jail_home.stdout }}/etc/rc.conf'
     state: present
     regexp: '^sshd_enable='
@@ -8,6 +9,7 @@
 
 - name: Configure jails sshd (allowed user, authentication, ..)
   lineinfile:
+    backup: '{{ backup_old_files }}'
     dest: '{{ jail_home.stdout }}/etc/ssh/sshd_config'
     state: present
     regexp: '{{ item.regexp }}'
@@ -32,7 +34,8 @@
 
 - name: Configure host sshd (allowed user, authentication, ..)
   lineinfile:
-    dest: /etc/ssh/sshd_config
+    backup: '{{ backup_old_files }}'
+    dest: '/etc/ssh/sshd_config'
     state: present
     regexp: '{{ item.regexp }}'
     line: '{{ item.line }}'
@@ -41,4 +44,4 @@
     - { regexp: '^ListenAddress', line: 'ListenAddress {{ host_net_int_ip }}' }
   when: sshd_jump_host
   notify:
-    - Reload sshd
+    - Reload {{ jail_name }} s sshd

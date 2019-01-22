@@ -1,20 +1,19 @@
----
 galaxy_info:
   author: Joerg Fiedler
   description: Provides a jailed sshd server.
   license: BSD
-  min_ansible_version: 2.0
+  min_ansible_version: 2.7.0
   platforms:
-  - name: FreeBSD
-    versions:
-    - 10.2
+    - name: FreeBSD
+  versions:
+    - 11.2
   galaxy_tags:
-  - FreeBSD
-  - jails
-  - iocage
-  - cloud
-  - ec2
-  - sshd
+    - freebsd
+    - jails
+    - iocage
+    - cloud
+    - ec2
+    - sshd
 allow_duplicates: yes
 dependencies:
-- { role: JoergFiedler.freebsd-jailed }
+  - JoergFiedler.freebsd-jailed

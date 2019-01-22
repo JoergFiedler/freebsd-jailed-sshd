@@ -1,8 +1,10 @@
+{{ ansible_managed | comment }}
+
 # allow outgoing SSH from jump host to host's external ip
 # which will be redirect to host's internal ip (!vagrant)
 pass out quick log on {{ jail_net_if }} proto tcp \
   from {{ jail_net_ip }} \
-  to {{ host_net_ext_ip }} port {{ sshd_port }} \
+  to any port {{ sshd_port }} \
   flags S/SA keep state
 
 # allow outgoing SSH from jump host to jump host ip

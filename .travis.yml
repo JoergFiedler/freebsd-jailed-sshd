@@ -1,0 +1,24 @@
+dist: xenial
+language: python
+python: 2.7
+install:
+- wget https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
+- sudo dpkg -i vagrant_2.2.2_x86_64.deb
+- pip install -r .requirements.txt
+before_script:
+- vagrant plugin install vagrant-aws
+- ssh-keygen -y -f ~/.vagrant.d/insecure_private_key > ~/.vagrant.d/insecure_private_key.pub
+- ln -s ./ JoergFiedler.freebsd-jailed-sshd
+script:
+- ansible-lint .
+- yamllint .
+- ansible-galaxy install -p ./ -r .requirements.yml
+- vagrant box add JoergFiedler/FreeBSD-11.2 --provider aws
+- vagrant up --provider aws
+- vagrant ssh -c "sudo iocage list"
+after_script:
+- vagrant destroy -f
+env:
+  global:
+  - secure: WurVSI9TiaefV+rvWQFxc3Wfh2/XPbFl3OjCcVfJnfyBMTmXdS3uep+eKxglVyHLG9g3LJIM9fRQPviUteDWbrAH+gFG7s2sgYS3d5t4tU7x1F3TP7dQBRoO/xM4UwwvB04/1MKiO5O1BViGZhXwC1a2vKUIvJDxafX/DNPHl31qx48Ixhebj13GS9Nboz29ReNdQaV4alm3bwa7+tbLw9DRzBU/zGL3fCfdGfu04q8bvDFtDEQu5HZm0cuL75+g47ySsOjnJrKfdtUb2TFG3xD2BrpWPi/U/qgFSTgToJo86hzZJVRCK0ojeQ+ZwXeLwmvs7tCZxb79Fq8jlLGl3kMMrlYSl+GZvWrayMqvvRHqJ1ztuu5g9hw6MceKSUoH5eU9JkFNBmMXC8syoOs+IJt0uY8T2MfL+GnQK+/q81/oioDqekd6CSzp9Lgb+ROlkUUrJykXw+6R9c3jXhCD2x16q4tHmF1U7MypeNaS8hQrGWl9z5dRqn6cUFuPfq1pBAfEv9Np3ESxCscH6m0DEjBYq0lKt2NxiFeXGmjptvRPZsuC/4/GwIGnftEc83yKC5I/XQ/yPl83NJGuOjQ00jEVGlchHf9S/RNK/CZxuFSblgJKS/Ui0mpU0KXKnyuwbe2LrTCKmo3YMA+ahx+nIGi8eHuCWHADAYHNsDvZT4I=
+  - secure: hsrVIlAaZkXBIV776NJItUy8JTd9UlO2/bVo8SiCNmgmtprtpEkOLjaoINC94FZy/9EZn2BIVZr5ApYEQtYgpzUAZKuDaTrqrqJMROjbasvXVGrgRKotHzhcIabokbXqdQ9KHwXNS9Y1dkhrabDd6XtqLM/8F6/ZUokoxOyssMcHysPnS9/hZX1s6yMp1fHCkiCT84VCVLCe+t4GUWlSvU3hlKHoqFROvk4jcbyVGLjZBpxZ/P+4kRBKqhmNZF8Cw+sRfSzTNcHnBu0oCw9c8PEBPqfZJUVbgF5PLR3943+bBWwUgvkWW0d7CUr9JeXq6NEFsiNVlNIqu6p9tE8krY24iDlO/oTfyTAWGro0BUazfApNX/poeINC1E8eipUiDvnvpm47pOZMkqHCqbg0+e0NKUb8VEb1JdYfr0jkc1Kxji5eD01LR6T2Z6SgGvfP4rqrg0ZFm0prrPGmTL4Enx+G/76R4TfnVWDzZ7thCIYyYIhVWy2oot+c6bbxZAPDGRtw8WPeHvdRsB6tV65i1gnm37mJXAGfDBlmMPlSaca8lVkWeRtxm83N/qY+xeMIWVRFcVPxI7SBauwMX0HvPhuAVqUI0eNE6Z+hTYlNOHQgCsVMHMBTXRHErym6t6s8Sn9uAeIYDM9AfM7hOaUWLhUigqF3FEtGjtxcZmqjpk4=
