@@ -5,8 +5,8 @@ galaxy_info:
   min_ansible_version: 2.7.0
   platforms:
     - name: FreeBSD
-  versions:
-    - 11.2
+      versions:
+        - 11.2
   galaxy_tags:
     - freebsd
     - jails
