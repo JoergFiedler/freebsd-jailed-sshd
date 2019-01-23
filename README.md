@@ -1,6 +1,8 @@
 freebsd-jailed-sshd
 =========
 
+[![Build Status](https://travis-ci.org/JoergFiedler/freebsd-jailed-sshd.svg?branch=master)](https://travis-ci.org/JoergFiedler/freebsd-jailed-sshd)
+
 This role provides a jailed sshd server. Nothing more.
 
 All incoming ssh connection will be redirected to this jail and if the user is allowed to login again forwarded to the hosts internal ssh server (needs proxy command to be set up - see `Vagrantfile` within this project for example).  
