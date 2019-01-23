@@ -18,6 +18,9 @@ script:
 - vagrant ssh -c "sudo iocage list"
 after_script:
 - vagrant destroy -f
+notifications:
+  webhooks:
+    - https://galaxy.ansible.com/api/v1/notifications/
 env:
   global:
   - secure: WurVSI9TiaefV+rvWQFxc3Wfh2/XPbFl3OjCcVfJnfyBMTmXdS3uep+eKxglVyHLG9g3LJIM9fRQPviUteDWbrAH+gFG7s2sgYS3d5t4tU7x1F3TP7dQBRoO/xM4UwwvB04/1MKiO5O1BViGZhXwC1a2vKUIvJDxafX/DNPHl31qx48Ixhebj13GS9Nboz29ReNdQaV4alm3bwa7+tbLw9DRzBU/zGL3fCfdGfu04q8bvDFtDEQu5HZm0cuL75+g47ySsOjnJrKfdtUb2TFG3xD2BrpWPi/U/qgFSTgToJo86hzZJVRCK0ojeQ+ZwXeLwmvs7tCZxb79Fq8jlLGl3kMMrlYSl+GZvWrayMqvvRHqJ1ztuu5g9hw6MceKSUoH5eU9JkFNBmMXC8syoOs+IJt0uY8T2MfL+GnQK+/q81/oioDqekd6CSzp9Lgb+ROlkUUrJykXw+6R9c3jXhCD2x16q4tHmF1U7MypeNaS8hQrGWl9z5dRqn6cUFuPfq1pBAfEv9Np3ESxCscH6m0DEjBYq0lKt2NxiFeXGmjptvRPZsuC/4/GwIGnftEc83yKC5I/XQ/yPl83NJGuOjQ00jEVGlchHf9S/RNK/CZxuFSblgJKS/Ui0mpU0KXKnyuwbe2LrTCKmo3YMA+ahx+nIGi8eHuCWHADAYHNsDvZT4I=
