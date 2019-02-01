@@ -17,4 +17,4 @@ galaxy_info:
     - system
 allow_duplicates: yes
 dependencies:
-  - JoergFiedler.freebsd-jailed
+  - { role: 'JoergFiedler.freebsd-jailed', tags: ['sshd'] }
