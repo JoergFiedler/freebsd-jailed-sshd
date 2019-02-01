@@ -30,7 +30,7 @@
   - { regexp: '^UsePAM', line: 'UsePAM no' }
   - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 30' }
   notify:
-    - Reload {{ jail_name }} s sshd
+    - Reload jail s sshd
 
 - name: Configure host sshd (allowed user, authentication, ..)
   lineinfile:
@@ -44,4 +44,4 @@
     - { regexp: '^ListenAddress', line: 'ListenAddress {{ host_net_int_ip }}' }
   when: sshd_jump_host
   notify:
-    - Reload {{ jail_name }} s sshd
+    - Reload jail s sshd
