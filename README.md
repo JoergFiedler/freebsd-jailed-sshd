@@ -63,6 +63,8 @@ Example Playbook
     
       tasks:
         - import_role:
+            name: 'JoergFiedler.freebsd-jail-host'
+        - include_role:
             name: 'JoergFiedler.freebsd-jailed-sshd'
           vars:
             jail_net_ip: '10.1.0.10'
