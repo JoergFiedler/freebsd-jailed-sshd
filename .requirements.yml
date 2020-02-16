@@ -1,6 +1,4 @@
 - src: git+https://github.com/JoergFiedler/freebsd-jail-host.git
-  version: 3f553e7
   name: JoergFiedler.freebsd-jail-host
 - src: git+https://github.com/JoergFiedler/freebsd-jailed.git
-  version: 8e5be89
   name: JoergFiedler.freebsd-jailed

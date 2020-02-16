@@ -15,5 +15,3 @@ galaxy_info:
     - ec2
     - sshd
 allow_duplicates: yes
-dependencies:
-  - JoergFiedler.freebsd-jailed
