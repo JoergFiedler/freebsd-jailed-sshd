@@ -58,9 +58,6 @@ Example Playbook
     - hosts: all
       become: true
     
-      vars:
-        ansible_python_interpreter: '/usr/local/bin/python2.7'
-    
       tasks:
         - import_role:
             name: 'JoergFiedler.freebsd-jail-host'
@@ -69,7 +66,6 @@ Example Playbook
           vars:
             jail_net_ip: '10.1.0.10'
             jail_name: 'sshd'
-            jail_freebsd_release: '11.2-RELEASE'
             sshd_jump_host: true
 
 License
