@@ -1,7 +1,7 @@
 ---
 - name: Enable sshd
   lineinfile:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     dest: '{{ jail_home.stdout }}/etc/rc.conf'
     state: present
     regexp: '^sshd_enable='
@@ -9,7 +9,7 @@
 
 - name: Configure jails sshd (allowed user, authentication, ..)
   lineinfile:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     dest: '{{ jail_home.stdout }}/etc/ssh/sshd_config'
     state: present
     regexp: '{{ item.regexp }}'
@@ -34,7 +34,7 @@
 
 - name: Configure host sshd (allowed user, authentication, ..)
   lineinfile:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     dest: '/etc/ssh/sshd_config'
     state: present
     regexp: '{{ item.regexp }}'

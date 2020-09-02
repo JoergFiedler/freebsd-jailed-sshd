@@ -1,6 +1,6 @@
 - name: Copy pf configuration (rdr rules)
   template:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     src: 'pf.anchor.rdr-jail.conf.j2'
     dest: '/etc/pf.anchor.rdr-jail.{{ jail_name }}.conf'
   notify:
@@ -8,7 +8,7 @@
 
 - name: Add pf configuration to anchor.rdr-jail conf
   lineinfile:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     dest: '/etc/pf.anchor.rdr-jail.conf'
     state: present
     line: 'include "/etc/pf.anchor.rdr-jail.{{ jail_name }}.conf"'
@@ -17,7 +17,7 @@
 
 - name: Copy pf configuration (rls rules)
   template:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     src: 'pf.anchor.rls-jail.conf.j2'
     dest: '/etc/pf.anchor.rls-jail.{{ jail_name }}.conf'
   when: sshd_jump_host
@@ -26,7 +26,7 @@
 
 - name: Add pf configuration to anchor.rls-jail conf
   lineinfile:
-    backup: '{{ backup_old_files }}'
+    backup: '{{ jail_backup_old_files }}'
     dest: '/etc/pf.anchor.rls-jail.conf'
     state: present
     line: 'include "/etc/pf.anchor.rls-jail.{{ jail_name }}.conf"'
