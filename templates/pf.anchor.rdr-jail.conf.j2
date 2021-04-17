@@ -9,5 +9,5 @@ rdr pass log on {{ jail_net_if }} proto tcp \
 # redirect incoming SSH connection to jump host
 rdr pass log on {{ host_net_ext_if }} proto tcp \
   from any \
-  to {{ host_net_ext_ips }} port {{ sshd_port }} \
+  to {{ host_net_ext_ip }} port {{ sshd_port }} \
   -> {{ jail_net_ip }} port {{ sshd_port }}
