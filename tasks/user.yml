@@ -7,7 +7,7 @@
     insertafter: EOF
     line: '{{ ssh_user_master_passwd_entry }}'
   notify:
-    - Update user database
+    - Update {{ jail_name }} user database
 
 - name: Create .ssh directry for ssh user
   file:

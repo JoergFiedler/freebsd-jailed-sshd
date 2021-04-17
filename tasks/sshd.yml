@@ -7,7 +7,7 @@
     regexp: '^sshd_enable='
     line: 'sshd_enable="YES"'
 
-- name: Configure jails sshd (allowed user, authentication, ..)
+- name: Configure jails sshd (allowed user, authentication, …)
   lineinfile:
     backup: '{{ jail_backup_old_files }}'
     dest: '{{ jail_home.stdout }}/etc/ssh/sshd_config'
@@ -30,7 +30,7 @@
   - { regexp: '^UsePAM', line: 'UsePAM no' }
   - { regexp: '^ClientAliveInterval', line: 'ClientAliveInterval 30' }
   notify:
-    - Reload jail s sshd
+    - Reload {{ jail_name }} sshd
 
 - name: Configure host sshd (allowed user, authentication, ..)
   lineinfile:
@@ -44,4 +44,4 @@
     - { regexp: '^ListenAddress', line: 'ListenAddress {{ host_net_int_ip }}' }
   when: sshd_jump_host
   notify:
-    - Reload jail s sshd
+    - Reload {{ jail_name }} sshd

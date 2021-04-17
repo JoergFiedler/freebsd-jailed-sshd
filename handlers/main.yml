@@ -1,9 +1,9 @@
 ---
-- name: Reload jail s sshd
+- name: Reload {{ jail_name }} sshd
   command: |
     /usr/local/bin/iocage exec {{ jail_name }} service sshd reload
   when: not jail_created is changed
 
-- name: Update user database
+- name: Update {{ jail_name }} user database
   command: |
     /usr/local/bin/iocage exec {{ jail_name }} pwd_mkdb -p -d /etc /etc/master.passwd
